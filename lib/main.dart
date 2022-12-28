@@ -1,100 +1,185 @@
 import 'package:flutter/material.dart';
-import 'package:login_page_project/password.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
+  bool value = false;
+
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Login_page_project',
-      home: login_page(),
+      title: 'Cafe_ordering_system',
+      home: cafe_ordering_system(),
     );
   }
 }
 
-class login_page extends StatefulWidget {
-  const login_page({Key? key}) : super(key: key);
+class cafe_ordering_system extends StatefulWidget {
+  const cafe_ordering_system({Key? key}) : super(key: key);
 
   @override
-  State<login_page> createState() => _login_pageState();
+  State<cafe_ordering_system> createState() => _cafe_ordering_systemState();
 }
 
-class _login_pageState extends State<login_page> {
+var amount = 0;
+
+class _cafe_ordering_systemState extends State<cafe_ordering_system> {
+  var cheakbox1 = false;
+  var cheakbox2 = false;
+  var cheakbox3 = false;
+  var cheakbox4 = false;
+  var cheakbox5 = false;
+
+  var pizza = 200;
+  var burger = 100;
+  var coffe = 70;
+  var cake = 300;
+  var icecream = 150;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login_page'),
+        title: Text('Cafe_ordering_system'),
       ),
       body: Center(
-          child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image(
-                image: NetworkImage(
-                    'https://miro.medium.com/max/700/1*rb3JJRN2YfybijTcxQiiUQ.png'),
-                width: 250),
-            SizedBox(
-              height: 30,
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text(
+              'Cafe_Ordering_System',
+              style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.lightBlue),
             ),
-            TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+            SizedBox(
+              height: 50,
+            ),
+            Row(
+              children: [
+                Checkbox(
+                  value: cheakbox1,
+                  onChanged: (value) {
+                    setState(() {
+                      cheakbox1 = value!;
+                      if (cheakbox1 == true) {
+                        amount += pizza;
+                      } else {
+                        amount -= pizza;
+                      }
+                    });
+                  },
                 ),
-                labelText: 'Email',
-                icon: Icon(Icons.email),
-                //errorText: 'please enter valid email address',
-              ),
+                Text(
+                  'pizza @ rs.200',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                )
+              ],
             ),
-            SizedBox(
-              height: 30,
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+            Row(
+              children: [
+                Checkbox(
+                  value: cheakbox2,
+                  onChanged: (value) {
+                    setState(() {
+                      cheakbox2 = value!;
+                      if (cheakbox2 == true) {
+                        amount += burger;
+                      } else {
+                        amount -= burger;
+                      }
+                    });
+                  },
                 ),
-                labelText: 'Password',
-                icon: Icon(Icons.password),
-                //errorText: 'please enter valid Password',
-              ),
+                Text(
+                  'Burger @ rs.100',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Checkbox(
+                  value: cheakbox3,
+                  onChanged: (value) {
+                    setState(() {
+                      cheakbox3 = value!;
+                      if (cheakbox3 == true) {
+                        amount += coffe;
+                      } else {
+                        amount -= coffe;
+                      }
+                    });
+                  },
+                ),
+                Text(
+                  'Coffe @ rs.70',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Checkbox(
+                  value: cheakbox4,
+                  onChanged: (value) {
+                    setState(() {
+                      cheakbox4 = value!;
+                      if (cheakbox4 == true) {
+                        amount += cake;
+                      } else {
+                        amount -= cake;
+                      }
+                    });
+                  },
+                ),
+                Text(
+                  'cake @ rs.300',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Checkbox(
+                  value: cheakbox5,
+                  onChanged: (value) {
+                    setState(() {
+                      cheakbox5 = value!;
+                      if (cheakbox5 == true) {
+                        amount += icecream;
+                      } else {
+                        amount -= icecream;
+                      }
+                    });
+                  },
+                ),
+                Text(
+                  'Ice-cream @ rs.150',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+              ],
             ),
             SizedBox(
-              height: 20,
-            ),
-            GestureDetector(
-              child: Text(
-                'Forgot Password ?',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400),
-              ),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => forgot(),));
-              },
-            ),
-            SizedBox(
-              height: 30,
+              height: 40,
             ),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => forgot(),));
                 },
-                child: Text(
-                  'Login',
-                  style: TextStyle(
+                child: Text('Done Order')),
+            SizedBox(
+              height: 30,
+            ),
+            Text('Your total bill amount  is ${amount}',
+                style: TextStyle(
                     fontSize: 20,
-                  ),
-                ))
-          ],
+                    fontWeight: FontWeight.w400,
+                    color: Colors.blue)),
+          ]),
         ),
-      )),
+      ),
     );
   }
 }
